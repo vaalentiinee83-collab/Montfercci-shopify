@@ -3,10 +3,7 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
-
-.cursor{position:fixed;width:8px;height:8px;background:#333333;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
-.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid #333333;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;opacity:0}
+body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden}
 
 header{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -18,11 +15,11 @@ header{
 .logo-link{text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .logo-img{height:50px;width:auto;display:block}
 .logo-tagline{display:block;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:.2em;color:#555;margin-top:4px}
-.burger{position:absolute;right:24px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:none;display:flex;flex-direction:column;gap:5px;padding:8px;z-index:110}
+.burger{position:absolute;right:24px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:8px;z-index:110}
 .burger span{display:block;width:22px;height:1px;background:#0a0a0a;transition:all .3s ease}
 .dropdown-menu{position:fixed;top:0;right:0;width:260px;height:100vh;background:#fff;z-index:105;display:flex;flex-direction:column;justify-content:flex-start;padding:100px 40px 48px;transform:translateX(100%);transition:transform .4s cubic-bezier(.77,0,.175,1)}
 .dropdown-menu.open{transform:translateX(0)}
-.dropdown-menu a{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:.06em;color:#0a0a0a;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(51,51,51,.1);cursor:none;transition:opacity .2s}
+.dropdown-menu a{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:.06em;color:#0a0a0a;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(51,51,51,.1);cursor:pointer;transition:opacity .2s}
 .dropdown-menu a:last-child{border-bottom:none}
 .dropdown-menu a:hover{opacity:.4}
 .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:104;opacity:0;pointer-events:none;transition:opacity .4s}
@@ -135,7 +132,7 @@ header{
 footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:flex;flex-direction:column;align-items:center;gap:22px;animation:fadeIn 1.2s 1.2s ease both}
 .footer-label{font-size:.6rem;letter-spacing:.4em;color:#0a0a0a;text-transform:uppercase;text-align:center}
 .social-links{display:flex;gap:16px}
-.social-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(51,51,51,.25);border-radius:50%;color:#0a0a0a;text-decoration:none;transition:all .3s;cursor:none}
+.social-link{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(51,51,51,.25);border-radius:50%;color:#0a0a0a;text-decoration:none;transition:all .3s}
 .social-link:hover{border-color:#0a0a0a}
 .social-link svg{width:18px;height:18px}
 .footer-bottom{font-size:.56rem;letter-spacing:.2em;color:#0a0a0a;text-transform:uppercase;text-align:center}
@@ -154,9 +151,6 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 }
 </style>
 
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <header>
   <a href="/" class="logo-link">
@@ -227,15 +221,6 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 
 
 <script>
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
-let mouseX=0,mouseY=0,ringX=0,ringY=0;
-document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;cursor.style.left=mouseX+'px';cursor.style.top=mouseY+'px';cursor.style.opacity='1';cursorRing.style.opacity='.5'});
-(function animRing(){ringX+=(mouseX-ringX)*.12;ringY+=(mouseY-ringY)*.12;cursorRing.style.left=ringX+'px';cursorRing.style.top=ringY+'px';requestAnimationFrame(animRing)})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursorRing.style.transform='translate(-50%,-50%) scale(1.5)';cursorRing.style.opacity='1'});
-  el.addEventListener('mouseleave',()=>{cursorRing.style.transform='translate(-50%,-50%) scale(1)';cursorRing.style.opacity='.5'});
-});
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
 const overlay = document.getElementById('menuOverlay');
