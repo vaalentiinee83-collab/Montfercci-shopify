@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "montfercci-notre-histoire": {
+      "type": "montfercci-notre-histoire",
+      "settings": {}
+    }
+  },
+  "order": [
+    "montfercci-notre-histoire"
+  ]
+}

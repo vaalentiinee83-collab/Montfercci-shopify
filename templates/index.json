@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "montfercci-home": {
+      "type": "montfercci-home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "montfercci-home"
+  ]
+}
