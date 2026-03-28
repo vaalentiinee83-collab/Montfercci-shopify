@@ -236,12 +236,10 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
     </div>
   </div>
 
-  {% form 'customer', id: 'mc-sf-form', style: 'display:none' %}
+  {% form 'newsletter', id: 'mc-sf-form', style: 'display:none' %}
     <input type="hidden" name="contact[email]" id="mc-sf-email">
     <input type="hidden" name="contact[first_name]" id="mc-sf-fname">
     <input type="hidden" name="contact[last_name]" id="mc-sf-lname">
-    <input type="hidden" name="contact[tags]" value="newsletter">
-    <input type="hidden" name="contact[accepts_marketing]" value="true">
   {% endform %}
 
 </section>
