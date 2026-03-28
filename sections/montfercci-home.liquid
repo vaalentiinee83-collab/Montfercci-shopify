@@ -368,8 +368,20 @@ function handleSubmit(){
   if(!p||!n||!e){alert('Veuillez remplir tous les champs.');return}
   if(!e.includes('@')){alert('E-mail invalide.');return}
   if(!r){alert('Veuillez accepter les conditions.');return}
-  document.getElementById('inscriptionForm').style.display='none';
-  document.getElementById('confirmMsg').style.display='block';
+  window.mcCallback=function(data){
+    const s=document.getElementById('mc-jsonp');if(s)s.remove();
+    document.getElementById('inscriptionForm').style.display='none';
+    document.getElementById('confirmMsg').style.display='block';
+  };
+  const script=document.createElement('script');
+  script.id='mc-jsonp';
+  script.src='https://montfercci.us16.list-manage.com/subscribe/post-json?u=14c4e81c3f34afeaae3be52d4&id=945ecafbed&f_id=008112e0f0'
+    +'&EMAIL='+encodeURIComponent(e)
+    +'&FNAME='+encodeURIComponent(p)
+    +'&LNAME='+encodeURIComponent(n)
+    +'&b_14c4e81c3f34afeaae3be52d4_945ecafbed='
+    +'&c=mcCallback';
+  document.body.appendChild(script);
 }
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
