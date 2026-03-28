@@ -236,6 +236,7 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
     </div>
   </div>
 
+  <iframe name="mc-iframe" style="display:none" aria-hidden="true" tabindex="-1"></iframe>
   {% form 'newsletter', id: 'mc-sf-form', style: 'display:none' %}
     <input type="hidden" name="contact[email]" id="mc-sf-email">
     <input type="hidden" name="contact[first_name]" id="mc-sf-fname">
@@ -379,7 +380,8 @@ function handleSubmit(){
   document.getElementById('mc-sf-email').value=e;
   document.getElementById('mc-sf-fname').value=p;
   document.getElementById('mc-sf-lname').value=n;
-  fetch(sf.action,{method:'POST',body:new FormData(sf)});
+  sf.target='mc-iframe';
+  sf.submit();
   document.getElementById('inscriptionForm').style.display='none';
   document.getElementById('confirmMsg').style.display='block';
 }
