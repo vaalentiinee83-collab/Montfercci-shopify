@@ -236,6 +236,15 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
     </div>
   </div>
 
+  <!-- Mailchimp hidden form -->
+  <iframe name="mc-iframe" style="display:none" aria-hidden="true"></iframe>
+  <form id="mc-hidden-form" action="https://montfercci.us16.list-manage.com/subscribe/post?u=14c4e81c3f34afeaae3be52d4&id=945ecafbed&f_id=008112e0f0" method="post" target="mc-iframe" style="display:none" aria-hidden="true">
+    <input type="email" name="EMAIL" id="mc-EMAIL">
+    <input type="text" name="FNAME" id="mc-FNAME">
+    <input type="text" name="LNAME" id="mc-LNAME">
+    <input type="text" name="b_14c4e81c3f34afeaae3be52d4_945ecafbed" value="" tabindex="-1">
+  </form>
+
 </section>
 
 <footer>
@@ -369,20 +378,12 @@ function handleSubmit(){
   if(!p||!n||!e){alert('Veuillez remplir tous les champs.');return}
   if(!e.includes('@')){alert('E-mail invalide.');return}
   if(!r){alert('Veuillez accepter les conditions.');return}
-  window.mcCallback=function(data){
-    const s=document.getElementById('mc-jsonp');if(s)s.remove();
-    document.getElementById('inscriptionForm').style.display='none';
-    document.getElementById('confirmMsg').style.display='block';
-  };
-  const script=document.createElement('script');
-  script.id='mc-jsonp';
-  script.src='https://montfercci.us16.list-manage.com/subscribe/post-json?u=14c4e81c3f34afeaae3be52d4&id=945ecafbed&f_id=008112e0f0'
-    +'&EMAIL='+encodeURIComponent(e)
-    +'&FNAME='+encodeURIComponent(p)
-    +'&LNAME='+encodeURIComponent(n)
-    +'&b_14c4e81c3f34afeaae3be52d4_945ecafbed='
-    +'&c=mcCallback';
-  document.body.appendChild(script);
+  document.getElementById('mc-EMAIL').value=e;
+  document.getElementById('mc-FNAME').value=p;
+  document.getElementById('mc-LNAME').value=n;
+  document.getElementById('mc-hidden-form').submit();
+  document.getElementById('inscriptionForm').style.display='none';
+  document.getElementById('confirmMsg').style.display='block';
 }
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
