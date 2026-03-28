@@ -220,28 +220,24 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 
 
   <div class="inscription-section">
-    <div id="inscriptionForm">
-      <div class="form-group"><input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name"></div>
-      <div class="form-group"><input type="text" id="nom" placeholder="Nom" autocomplete="family-name"></div>
-      <div class="form-group"><input type="email" id="email" placeholder="Adresse e-mail" autocomplete="email"></div>
-      <div class="rgpd-row">
-        <input type="checkbox" id="rgpd">
-        <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
-      </div>
-      <button class="btn-submit" onclick="handleSubmit()">Être alertée du lancement</button>
-    </div>
-    <div class="confirmation-msg" id="confirmMsg">
-      <p>Merci !</p>
-      <p>Nous vous contacterons en avant-première.</p>
-    </div>
+    {% form 'newsletter' %}
+      {% if form.posted_successfully? %}
+        <div class="confirmation-msg" style="display:block">
+          <p>Merci !</p>
+          <p>Nous vous contacterons en avant-première.</p>
+        </div>
+      {% else %}
+        <div class="form-group"><input type="text" name="contact[first_name]" placeholder="Prénom" autocomplete="given-name"></div>
+        <div class="form-group"><input type="text" name="contact[last_name]" placeholder="Nom" autocomplete="family-name"></div>
+        <div class="form-group"><input type="email" name="contact[email]" placeholder="Adresse e-mail" autocomplete="email" required></div>
+        <div class="rgpd-row">
+          <input type="checkbox" id="rgpd" required>
+          <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
+        </div>
+        <button type="submit" class="btn-submit">Être alertée du lancement</button>
+      {% endif %}
+    {% endform %}
   </div>
-
-  <iframe name="mc-iframe" style="display:none" aria-hidden="true" tabindex="-1"></iframe>
-  {% form 'newsletter', id: 'mc-sf-form', style: 'display:none' %}
-    <input type="hidden" name="contact[email]" id="mc-sf-email">
-    <input type="hidden" name="contact[first_name]" id="mc-sf-fname">
-    <input type="hidden" name="contact[last_name]" id="mc-sf-lname">
-  {% endform %}
 
 </section>
 
@@ -367,24 +363,6 @@ document.querySelectorAll('.swatch').forEach(btn=>{
   });
 });
 
-// Formulaire
-function handleSubmit(){
-  const p=document.getElementById('prenom').value.trim();
-  const n=document.getElementById('nom').value.trim();
-  const e=document.getElementById('email').value.trim();
-  const r=document.getElementById('rgpd').checked;
-  if(!p||!n||!e){alert('Veuillez remplir tous les champs.');return}
-  if(!e.includes('@')){alert('E-mail invalide.');return}
-  if(!r){alert('Veuillez accepter les conditions.');return}
-  const sf=document.getElementById('mc-sf-form');
-  document.getElementById('mc-sf-email').value=e;
-  document.getElementById('mc-sf-fname').value=p;
-  document.getElementById('mc-sf-lname').value=n;
-  sf.target='mc-iframe';
-  sf.submit();
-  document.getElementById('inscriptionForm').style.display='none';
-  document.getElementById('confirmMsg').style.display='block';
-}
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
 const overlay = document.getElementById('menuOverlay');
