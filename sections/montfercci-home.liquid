@@ -228,12 +228,25 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
         <input type="checkbox" id="rgpd">
         <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
       </div>
-      <button class="btn-submit" onclick="handleSubmit()">Être alertée du lancement</button>
+      <button class="btn-submit" id="btnSubmit">Être alertée du lancement</button>
     </div>
-    <div class="confirmation-msg" id="confirmMsg">
-      <p>Merci. Nous vous contacterons en avant-première.</p>
+    <div class="confirmation-msg" id="confirmMsg" style="display:none">
+      <p>Merci !</p>
+      <p>Nous vous contacterons en avant-première.</p>
     </div>
   </div>
+
+  <iframe id="mc-iframe" name="mc-iframe" style="display:none" aria-hidden="true" tabindex="-1"></iframe>
+  <form id="mc-form"
+    action="https://montfercci.us16.list-manage.com/subscribe/post?u=14c4e81c3f34afeaae3be52d4&id=945ecafbed&f_id=008112e0f0"
+    method="post"
+    target="mc-iframe"
+    style="display:none">
+    <input type="email" name="EMAIL" id="mc-EMAIL">
+    <input type="text" name="FNAME" id="mc-FNAME">
+    <input type="text" name="LNAME" id="mc-LNAME">
+    <input type="text" name="b_14c4e81c3f34afeaae3be52d4_945ecafbed" tabindex="-1" value="" style="position:absolute;left:-5000px" aria-hidden="true">
+  </form>
 
 </section>
 
@@ -359,21 +372,24 @@ document.querySelectorAll('.swatch').forEach(btn=>{
   });
 });
 
-// Formulaire
-function handleSubmit(){
+const burger = document.getElementById('burger');
+const menu = document.getElementById('dropdownMenu');
+const overlay = document.getElementById('menuOverlay');
+document.getElementById('btnSubmit').addEventListener('click', function(){
+  console.log('bouton cliqué');
   const p=document.getElementById('prenom').value.trim();
   const n=document.getElementById('nom').value.trim();
   const e=document.getElementById('email').value.trim();
   const r=document.getElementById('rgpd').checked;
-  if(!p||!n||!e){alert('Veuillez remplir tous les champs.');return}
-  if(!e.includes('@')){alert('E-mail invalide.');return}
-  if(!r){alert('Veuillez accepter les conditions.');return}
+  if(!p||!n||!e){alert('Veuillez remplir tous les champs.');return;}
+  if(!r){alert('Veuillez accepter les conditions.');return;}
+  document.getElementById('mc-FNAME').value=p;
+  document.getElementById('mc-LNAME').value=n;
+  document.getElementById('mc-EMAIL').value=e;
+  document.getElementById('mc-form').submit();
   document.getElementById('inscriptionForm').style.display='none';
   document.getElementById('confirmMsg').style.display='block';
-}
-const burger = document.getElementById('burger');
-const menu = document.getElementById('dropdownMenu');
-const overlay = document.getElementById('menuOverlay');
+});
 burger.addEventListener('click', () => {
   menu.classList.toggle('open');
   overlay.classList.toggle('open');
