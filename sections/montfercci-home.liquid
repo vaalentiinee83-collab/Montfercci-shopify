@@ -220,24 +220,33 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 
 
   <div class="inscription-section">
-    {% form 'newsletter' %}
-      {% if form.posted_successfully? %}
-        <div class="confirmation-msg" style="display:block">
-          <p>Merci !</p>
-          <p>Nous vous contacterons en avant-première.</p>
-        </div>
-      {% else %}
-        <div class="form-group"><input type="text" name="contact[first_name]" placeholder="Prénom" autocomplete="given-name"></div>
-        <div class="form-group"><input type="text" name="contact[last_name]" placeholder="Nom" autocomplete="family-name"></div>
-        <div class="form-group"><input type="email" name="contact[email]" placeholder="Adresse e-mail" autocomplete="email" required></div>
-        <div class="rgpd-row">
-          <input type="checkbox" id="rgpd" required>
-          <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
-        </div>
-        <button type="submit" class="btn-submit">Être alertée du lancement</button>
-      {% endif %}
-    {% endform %}
+    <div id="inscriptionForm">
+      <div class="form-group"><input type="text" id="prenom" placeholder="Prénom" autocomplete="given-name"></div>
+      <div class="form-group"><input type="text" id="nom" placeholder="Nom" autocomplete="family-name"></div>
+      <div class="form-group"><input type="email" id="email" placeholder="Adresse e-mail" autocomplete="email"></div>
+      <div class="rgpd-row">
+        <input type="checkbox" id="rgpd">
+        <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
+      </div>
+      <button class="btn-submit" onclick="envoyerMailchimp()">Être alertée du lancement</button>
+    </div>
+    <div class="confirmation-msg" id="confirmMsg" style="display:none">
+      <p>Merci !</p>
+      <p>Nous vous contacterons en avant-première.</p>
+    </div>
   </div>
+
+  <iframe id="mc-iframe" name="mc-iframe" style="display:none" aria-hidden="true" tabindex="-1"></iframe>
+  <form id="mc-form"
+    action="https://montfercci.us16.list-manage.com/subscribe/post?u=14c4e81c3f34afeaae3be52d4&id=945ecafbed&f_id=008112e0f0"
+    method="post"
+    target="mc-iframe"
+    style="display:none">
+    <input type="email" name="EMAIL" id="mc-EMAIL">
+    <input type="text" name="FNAME" id="mc-FNAME">
+    <input type="text" name="LNAME" id="mc-LNAME">
+    <input type="text" name="b_14c4e81c3f34afeaae3be52d4_945ecafbed" tabindex="-1" value="" style="position:absolute;left:-5000px" aria-hidden="true">
+  </form>
 
 </section>
 
@@ -366,6 +375,20 @@ document.querySelectorAll('.swatch').forEach(btn=>{
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
 const overlay = document.getElementById('menuOverlay');
+function envoyerMailchimp(){
+  const p=document.getElementById('prenom').value.trim();
+  const n=document.getElementById('nom').value.trim();
+  const e=document.getElementById('email').value.trim();
+  const r=document.getElementById('rgpd').checked;
+  if(!p||!n||!e){alert('Veuillez remplir tous les champs.');return;}
+  if(!r){alert('Veuillez accepter les conditions.');return;}
+  document.getElementById('mc-FNAME').value=p;
+  document.getElementById('mc-LNAME').value=n;
+  document.getElementById('mc-EMAIL').value=e;
+  document.getElementById('mc-form').submit();
+  document.getElementById('inscriptionForm').style.display='none';
+  document.getElementById('confirmMsg').style.display='block';
+}
 burger.addEventListener('click', () => {
   menu.classList.toggle('open');
   overlay.classList.toggle('open');
