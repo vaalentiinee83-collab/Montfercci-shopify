@@ -228,7 +228,7 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
         <input type="checkbox" id="rgpd">
         <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
       </div>
-      <button class="btn-submit" onclick="envoyerMailchimp()">Être alertée du lancement</button>
+      <button class="btn-submit" id="btnSubmit">Être alertée du lancement</button>
     </div>
     <div class="confirmation-msg" id="confirmMsg" style="display:none">
       <p>Merci !</p>
@@ -375,8 +375,8 @@ document.querySelectorAll('.swatch').forEach(btn=>{
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
 const overlay = document.getElementById('menuOverlay');
-function envoyerMailchimp(){
-  console.log('envoyerMailchimp appelée');
+document.getElementById('btnSubmit').addEventListener('click', function(){
+  console.log('bouton cliqué');
   const p=document.getElementById('prenom').value.trim();
   const n=document.getElementById('nom').value.trim();
   const e=document.getElementById('email').value.trim();
@@ -389,7 +389,7 @@ function envoyerMailchimp(){
   document.getElementById('mc-form').submit();
   document.getElementById('inscriptionForm').style.display='none';
   document.getElementById('confirmMsg').style.display='block';
-}
+});
 burger.addEventListener('click', () => {
   menu.classList.toggle('open');
   overlay.classList.toggle('open');
