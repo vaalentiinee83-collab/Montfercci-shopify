@@ -150,7 +150,14 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 
 
 <header>
-  <a href="#" class="logo-link"><img src="{{ 'montfercci-logo.png' | asset_url }}" class="logo-img" alt="Montfercci Paris"><span class="logo-tagline">Habiller l'ambition.</span></a>
+  <a href="#" class="logo-link">
+    {%- if section.settings.logo != blank -%}
+      <img src="{{ section.settings.logo | image_url: width: 400 }}" class="logo-img" alt="{{ section.settings.logo.alt | default: 'Montfercci Paris' }}">
+    {%- else -%}
+      <img src="{{ 'montfercci-logo.png' | asset_url }}" class="logo-img" alt="Montfercci Paris">
+    {%- endif -%}
+    <span class="logo-tagline">{{ section.settings.tagline }}</span>
+  </a>
   <button class="burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -203,7 +210,7 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
   </div>
 
   <div class="couleurs">
-    <p class="couleurs-label">Couleur</p>
+    <p class="couleurs-label">{{ section.settings.couleur_label }}</p>
     <div class="couleurs-swatches">
       <button class="swatch active" data-color="noir" style="background:#0a0a0a" title="Noir"></button>
       <button class="swatch" data-color="marine" style="background:#1b2a4a" title="Bleu marine"></button>
@@ -212,7 +219,7 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
   </div>
 
   <div class="accroche">
-    <p><em>Patience</em>... on repasse votre Tieleur.</p>
+    <p>{{ section.settings.accroche }}</p>
   </div>
 
 
@@ -223,13 +230,13 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
       <div class="form-group"><input type="email" id="email" placeholder="Adresse e-mail" autocomplete="email"></div>
       <div class="rgpd-row">
         <input type="checkbox" id="rgpd">
-        <label for="rgpd">J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité.</label>
+        <label for="rgpd">{{ section.settings.rgpd_text }}</label>
       </div>
-      <button class="btn-submit" id="btnSubmit">Être alertée du lancement</button>
+      <button class="btn-submit" id="btnSubmit">{{ section.settings.btn_text }}</button>
     </div>
     <div class="confirmation-msg" id="confirmMsg" style="display:none">
-      <p>Merci !</p>
-      <p>Nous vous contacterons en avant-première.</p>
+      <p>{{ section.settings.confirmation_title }}</p>
+      <p>{{ section.settings.confirmation_text }}</p>
     </div>
   </div>
 
@@ -248,7 +255,7 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 </section>
 
 <footer>
-  <p class="footer-bottom">© 2026 Montfercci Paris — <a href="mailto:contact@montfercci.com">contact@montfercci.com</a></p>
+  <p class="footer-bottom">{{ section.settings.copyright }} — <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>
 </footer>
 
 
@@ -393,6 +400,83 @@ document.querySelectorAll('#dropdownMenu a').forEach(a => {
 {% schema %}
 {
   "name": "MONTFERCCI Home",
-  "tag": "section"
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo & En-tête"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (laisse vide pour utiliser montfercci-logo.png)"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline sous le logo",
+      "default": "Habiller l'ambition."
+    },
+    {
+      "type": "header",
+      "content": "Configurateur"
+    },
+    {
+      "type": "text",
+      "id": "couleur_label",
+      "label": "Label couleurs",
+      "default": "Couleur"
+    },
+    {
+      "type": "text",
+      "id": "accroche",
+      "label": "Texte accroche (sous le configurateur)",
+      "default": "Patience... on repasse votre Tieleur."
+    },
+    {
+      "type": "header",
+      "content": "Formulaire d'inscription"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Texte du bouton",
+      "default": "Être alertée du lancement"
+    },
+    {
+      "type": "textarea",
+      "id": "rgpd_text",
+      "label": "Texte RGPD",
+      "default": "J'accepte de recevoir les communications de MONTFERCCI Paris et reconnais avoir pris connaissance de la politique de confidentialité."
+    },
+    {
+      "type": "text",
+      "id": "confirmation_title",
+      "label": "Titre confirmation",
+      "default": "Merci !"
+    },
+    {
+      "type": "text",
+      "id": "confirmation_text",
+      "label": "Texte confirmation",
+      "default": "Nous vous contacterons en avant-première."
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Texte copyright",
+      "default": "© 2026 Montfercci Paris"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email de contact",
+      "default": "contact@montfercci.com"
+    }
+  ]
 }
 {% endschema %}
