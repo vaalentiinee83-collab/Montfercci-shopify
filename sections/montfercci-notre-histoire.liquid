@@ -164,8 +164,12 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 
 <header>
   <a href="/" class="logo-link">
-    <img src="{{ 'montfercci-logo.png' | asset_url }}" class="logo-img" alt="Montfercci Paris">
-    <span class="logo-tagline">Habiller l'ambition.</span>
+    {%- if section.settings.logo != blank -%}
+      <img src="{{ section.settings.logo | image_url: width: 400 }}" class="logo-img" alt="{{ section.settings.logo.alt | default: 'Montfercci Paris' }}">
+    {%- else -%}
+      <img src="{{ 'montfercci-logo.png' | asset_url }}" class="logo-img" alt="Montfercci Paris">
+    {%- endif -%}
+    <span class="logo-tagline">{{ section.settings.tagline }}</span>
   </a>
   <button class="burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -180,43 +184,43 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 <main class="page-content">
 
   <div class="histoire-hero">
-    <h1>Un erasmus en Italie, une rencontre et une évidence.</h1>
+    <h1>{{ section.settings.titre_principal }}</h1>
   </div>
 
   <div class="separateur"></div>
 
   <div class="section-texte">
-    <p>Tout a commencé en Italie du sud, par une rencontre et un constat partagé.</p>
-    <p>Thaïs et Valentine découvrent qu'elles partagent la même frustration : impossible de trouver un tailleur féminin, structuré, et à leur taille.</p>
-    <p>Trop long, trop court, trop large, jamais pensé pour nous.</p>
-    <p>De cette évidence est née MONTFERCCI Paris, avec une ambition claire : redonner au tailleur sa fonction première, celle d'épouser parfaitement la silhouette et apporter confiance aux femmes.</p>
-    <p>Avec comme concept, le Tieleur, pièce signature de la maison. Un tailleur avec cravate, symbole de pouvoir longtemps réservé aux hommes, repensé en apportant un style féminin.</p>
-    <p>Nous travaillons avec des tissus italiens et une production au Portugal, reconnus pour leur qualité et leur savoir-faire.</p>
-    <p>Car pour nous, bien s'habiller ne devrait jamais être une contrainte.</p>
+    <p>{{ section.settings.paragraphe_1 }}</p>
+    <p>{{ section.settings.paragraphe_2 }}</p>
+    <p>{{ section.settings.paragraphe_3 }}</p>
+    <p>{{ section.settings.paragraphe_4 }}</p>
+    <p>{{ section.settings.paragraphe_5 }}</p>
+    <p>{{ section.settings.paragraphe_6 }}</p>
+    <p>{{ section.settings.paragraphe_7 }}</p>
   </div>
 
   <div class="citation">
     <blockquote>
-      « Osez le porter. Devenez la femme que vous voulez être. Affirmez-vous. »
-      <cite>Montfercci Paris</cite>
+      {{ section.settings.citation }}
+      <cite>{{ section.settings.citation_auteur }}</cite>
     </blockquote>
   </div>
 
   <div class="valeurs">
     <div class="valeur">
-      <p class="valeur-titre">Pour toutes les tailles</p>
-      <p class="valeur-texte">Des coupes pensées pour chaque morphologie, des petites aux grandes tailles.</p>
+      <p class="valeur-titre">{{ section.settings.valeur_1_titre }}</p>
+      <p class="valeur-texte">{{ section.settings.valeur_1_texte }}</p>
     </div>
     <div class="valeur">
-      <p class="valeur-titre">Rapport qualité-prix</p>
-      <p class="valeur-texte">Des matières soigneusement sélectionnées, à un prix accessible et honnête.</p>
+      <p class="valeur-titre">{{ section.settings.valeur_2_titre }}</p>
+      <p class="valeur-texte">{{ section.settings.valeur_2_texte }}</p>
     </div>
   </div>
 
 </main>
 
 <footer>
-  <p class="footer-bottom">© 2026 Montfercci Paris — <a href="mailto:contact@montfercci.com">contact@montfercci.com</a></p>
+  <p class="footer-bottom">{{ section.settings.copyright }} — <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>
 </footer>
 
 
@@ -246,6 +250,32 @@ document.querySelectorAll('#dropdownMenu a').forEach(a => {
 {% schema %}
 {
   "name": "MONTFERCCI Notre Histoire",
-  "tag": "section"
+  "tag": "section",
+  "settings": [
+    {"type": "header", "content": "Logo & En-tête"},
+    {"type": "image_picker", "id": "logo", "label": "Logo (laisse vide pour utiliser montfercci-logo.png)"},
+    {"type": "text", "id": "tagline", "label": "Tagline sous le logo", "default": "Habiller l'ambition."},
+    {"type": "header", "content": "Titre principal"},
+    {"type": "text", "id": "titre_principal", "label": "Titre", "default": "Un erasmus en Italie, une rencontre et une évidence."},
+    {"type": "header", "content": "Texte de l'histoire"},
+    {"type": "textarea", "id": "paragraphe_1", "label": "Paragraphe 1", "default": "Tout a commencé en Italie du sud, par une rencontre et un constat partagé."},
+    {"type": "textarea", "id": "paragraphe_2", "label": "Paragraphe 2", "default": "Thaïs et Valentine découvrent qu'elles partagent la même frustration : impossible de trouver un tailleur féminin, structuré, et à leur taille."},
+    {"type": "textarea", "id": "paragraphe_3", "label": "Paragraphe 3", "default": "Trop long, trop court, trop large, jamais pensé pour nous."},
+    {"type": "textarea", "id": "paragraphe_4", "label": "Paragraphe 4", "default": "De cette évidence est née MONTFERCCI Paris, avec une ambition claire : redonner au tailleur sa fonction première, celle d'épouser parfaitement la silhouette et apporter confiance aux femmes."},
+    {"type": "textarea", "id": "paragraphe_5", "label": "Paragraphe 5", "default": "Avec comme concept, le Tieleur, pièce signature de la maison. Un tailleur avec cravate, symbole de pouvoir longtemps réservé aux hommes, repensé en apportant un style féminin."},
+    {"type": "textarea", "id": "paragraphe_6", "label": "Paragraphe 6", "default": "Nous travaillons avec des tissus italiens et une production au Portugal, reconnus pour leur qualité et leur savoir-faire."},
+    {"type": "textarea", "id": "paragraphe_7", "label": "Paragraphe 7", "default": "Car pour nous, bien s'habiller ne devrait jamais être une contrainte."},
+    {"type": "header", "content": "Citation"},
+    {"type": "textarea", "id": "citation", "label": "Citation", "default": "« Osez le porter. Devenez la femme que vous voulez être. Affirmez-vous. »"},
+    {"type": "text", "id": "citation_auteur", "label": "Auteur de la citation", "default": "Montfercci Paris"},
+    {"type": "header", "content": "Valeurs"},
+    {"type": "text", "id": "valeur_1_titre", "label": "Valeur 1 — Titre", "default": "Pour toutes les tailles"},
+    {"type": "textarea", "id": "valeur_1_texte", "label": "Valeur 1 — Texte", "default": "Des coupes pensées pour chaque morphologie, des petites aux grandes tailles."},
+    {"type": "text", "id": "valeur_2_titre", "label": "Valeur 2 — Titre", "default": "Rapport qualité-prix"},
+    {"type": "textarea", "id": "valeur_2_texte", "label": "Valeur 2 — Texte", "default": "Des matières soigneusement sélectionnées, à un prix accessible et honnête."},
+    {"type": "header", "content": "Footer"},
+    {"type": "text", "id": "copyright", "label": "Texte copyright", "default": "© 2026 Montfercci Paris"},
+    {"type": "text", "id": "email", "label": "Email de contact", "default": "contact@montfercci.com"}
+  ]
 }
 {% endschema %}
