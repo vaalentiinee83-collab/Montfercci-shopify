@@ -262,6 +262,27 @@ footer{border-top:1px solid rgba(51,51,51,.12);padding:36px 48px 32px;display:fl
 <script src="{{ 'montfercci-imgs.js' | asset_url }}"></script>
 
 <script>
+// Images custom depuis Shopify Customize (fallback sur base64 si vide)
+const CUSTOM_IMGS = {
+  tie: [
+    {% if section.settings.tie_img_noir != blank %}"{{ section.settings.tie_img_noir | image_url: width: 400 }}"{% else %}null{% endif %},
+    {% if section.settings.tie_img_marine != blank %}"{{ section.settings.tie_img_marine | image_url: width: 400 }}"{% else %}null{% endif %},
+    {% if section.settings.tie_img_creme != blank %}"{{ section.settings.tie_img_creme | image_url: width: 400 }}"{% else %}null{% endif %}
+  ],
+  jacket: [
+    {% if section.settings.jacket_img_noir != blank %}"{{ section.settings.jacket_img_noir | image_url: width: 400 }}"{% else %}null{% endif %},
+    {% if section.settings.jacket_img_marine != blank %}"{{ section.settings.jacket_img_marine | image_url: width: 400 }}"{% else %}null{% endif %},
+    {% if section.settings.jacket_img_creme != blank %}"{{ section.settings.jacket_img_creme | image_url: width: 400 }}"{% else %}null{% endif %}
+  ],
+  pants: [
+    {% if section.settings.pants_img_noir != blank %}"{{ section.settings.pants_img_noir | image_url: width: 400 }}"{% else %}null{% endif %},
+    {% if section.settings.pants_img_marine != blank %}"{{ section.settings.pants_img_marine | image_url: width: 400 }}"{% else %}null{% endif %},
+    {% if section.settings.pants_img_creme != blank %}"{{ section.settings.pants_img_creme | image_url: width: 400 }}"{% else %}null{% endif %}
+  ]
+};
+</script>
+
+<script>
 // Configurateur 3D
 /* IMGS loaded from external file */;
 
@@ -277,7 +298,8 @@ function build(piece){
     div.className='rslide';
     div.style.transform=`translateX(-50%) rotateY(${(360/N)*i}deg) translateZ(${R}px)`;
     const img=document.createElement('img');
-    img.src='data:image/png;base64,'+IMGS[piece][i];
+    const customUrl=CUSTOM_IMGS[piece][i];
+    img.src=customUrl?customUrl:'data:image/png;base64,'+IMGS[piece][i];
     div.appendChild(img);
     ring.appendChild(div);
   }
@@ -420,6 +442,63 @@ document.querySelectorAll('#dropdownMenu a').forEach(a => {
     {
       "type": "header",
       "content": "Configurateur"
+    },
+    {
+      "type": "header",
+      "content": "Images — Cravate"
+    },
+    {
+      "type": "image_picker",
+      "id": "tie_img_noir",
+      "label": "Cravate — Noir"
+    },
+    {
+      "type": "image_picker",
+      "id": "tie_img_marine",
+      "label": "Cravate — Bleu marine"
+    },
+    {
+      "type": "image_picker",
+      "id": "tie_img_creme",
+      "label": "Cravate — Crème"
+    },
+    {
+      "type": "header",
+      "content": "Images — Veste"
+    },
+    {
+      "type": "image_picker",
+      "id": "jacket_img_noir",
+      "label": "Veste — Noir"
+    },
+    {
+      "type": "image_picker",
+      "id": "jacket_img_marine",
+      "label": "Veste — Bleu marine"
+    },
+    {
+      "type": "image_picker",
+      "id": "jacket_img_creme",
+      "label": "Veste — Crème"
+    },
+    {
+      "type": "header",
+      "content": "Images — Pantalon"
+    },
+    {
+      "type": "image_picker",
+      "id": "pants_img_noir",
+      "label": "Pantalon — Noir"
+    },
+    {
+      "type": "image_picker",
+      "id": "pants_img_marine",
+      "label": "Pantalon — Bleu marine"
+    },
+    {
+      "type": "image_picker",
+      "id": "pants_img_creme",
+      "label": "Pantalon — Crème"
     },
     {
       "type": "text",
