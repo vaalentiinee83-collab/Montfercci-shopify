@@ -72,9 +72,7 @@ header{
 .couleurs{text-align:center;margin-top:48px;position:relative;z-index:3}
 .couleurs-label{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:#0a0a0a;margin-bottom:12px}
 .couleurs-swatches{display:flex;justify-content:center;gap:14px}
-.swatch{width:22px;height:22px;border-radius:50%;border:1.5px solid transparent;cursor:pointer;padding:0;transition:transform .2s,border-color .2s}
-.swatch:hover{transform:scale(1.15)}
-.swatch.active{border-color:#0a0a0a;outline:2px solid rgba(10,10,10,.18);outline-offset:2px}
+.swatch{width:22px;height:22px;border-radius:50%;border:1.5px solid transparent;cursor:default;padding:0;pointer-events:none}
 .swatch[data-color="creme"]{border-color:rgba(10,10,10,.2)}
 .swatch[data-color="creme"].active{border-color:#0a0a0a}
 
@@ -355,13 +353,6 @@ function prev(p){go(p,st[p]-1)}
   row.addEventListener('mouseleave',()=>drag=false);
 });
 
-// Swatches couleur
-document.querySelectorAll('.swatch').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
 
 const burger = document.getElementById('burger');
 const menu = document.getElementById('dropdownMenu');
