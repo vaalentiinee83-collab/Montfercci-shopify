@@ -1,8 +1,35 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "montfercci-notre-histoire": {
       "type": "montfercci-notre-histoire",
-      "settings": {}
+      "settings": {
+        "tagline": "Habiller l'ambition.",
+        "titre_principal": "",
+        "paragraphe_1": "Tout est parti d’une quête : trouver un tailleur qui donne assurance et crédibilité. Faute de le trouver, l’idée de le créer s’est imposée.",
+        "paragraphe_2": "\"En école de mode, je découvre la cravate sur des femmes pendant les défilés et je m'étonne de n’en trouver aucune au rayon femme en magasin. \nPourquoi les réserver aux hommes ? \nUne cravate confère à celle qui la porte un charisme incroyable.\"",
+        "paragraphe_3": "Valentine, fondatrice de la marque",
+        "paragraphe_4": "",
+        "paragraphe_5": "",
+        "paragraphe_6": "",
+        "paragraphe_7": "",
+        "citation": "« Osez le porter. Devenez la femme que vous désirez être. Affirmez-vous. »",
+        "citation_auteur": "Montfercci Paris",
+        "valeur_1_titre": "Pour toutes les tailles",
+        "valeur_1_texte": "Des coupes pensées pour chaque morphologie, des petites aux grandes tailles.",
+        "valeur_2_titre": "Rapport qualité-prix",
+        "valeur_2_texte": "Des matières soigneusement sélectionnées, à un prix honnête.",
+        "copyright": "© 2026 Montfercci Paris",
+        "email": "contact@montfercci.com"
+      }
     }
   },
   "order": [
